@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="principalLoginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="728.0" styleClass="main-background" stylesheets="@../estilos/Login.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.moon.controladores.LoginController">
+   <children>
+      <Button fx:id="btnCerrar" layoutX="695.0" layoutY="-2.0" mnemonicParsing="false" onAction="#Cerrar" prefHeight="29.0" prefWidth="33.0" styleClass="close-button" stylesheets="@../estilos/ventanasGeneral.css" text="x" textFill="RED">
+         <font>
+            <Font name="Noto Sans Regular" size="12.0" />
+         </font>
+      </Button>
+      <VBox layoutX="173.0" layoutY="51.0" prefHeight="460.0" prefWidth="384.0" styleClass="login-card" stylesheets="@../estilos/Login.css">
+         <children>
+            <VBox alignment="CENTER" prefHeight="70.0" prefWidth="300.0">
+               <children>
+                  <ImageView fitHeight="69.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/jimbo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="108.0" prefWidth="384.0">
+               <children>
+                  <Label text="Inicia Sesion">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Crea nuevos diseñor desde un solo lugar. gratis" />
+               </children>
+            </VBox>
+            <VBox prefHeight="170.0" prefWidth="300.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="fieldUsuario" promptText="Usuario" styleClass="text-field-custom" stylesheets="@../estilos/Login.css" text="usuario" />
+                  <TextField fx:id="fieldPassword" promptText="Contraseña" styleClass="text-field-custom" stylesheets="@../estilos/Login.css" text="password" />
+                  <Label onMouseClicked="#onCrearUsuario" text="Crear un Usuario?" />
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="90.0" prefWidth="384.0" spacing="10.0" stylesheets="@../estilos/Login.css">
+               <children>
+                  <Button fx:id="btnIniciar" mnemonicParsing="false" onAction="#IniciarSesion" prefHeight="42.0" prefWidth="274.0" styleClass="button-primary" stylesheets="@../estilos/Login.css" text="Iniciar" />
+                  <Label fx:id="lblMensaje" text="xxx" />
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

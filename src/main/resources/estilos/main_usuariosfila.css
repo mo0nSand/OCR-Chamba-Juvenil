@@ -1,0 +1,33 @@
+.tarjeta-usuario {
+    -fx-background-color: #ffffff; 
+    -fx-background-radius: 8;      
+    -fx-padding: 15 25 15 25;       
+    
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4);
+    
+    -fx-transition: -fx-background-color 0.2s;
+}
+
+.tarjeta-usuario:hover {
+    -fx-background-color: #F0F0F0;
+    -fx-cursor: hand;
+}
+
+
+.label-titulo {
+    -fx-text-fill: #7f8c8d; 
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.label-datos {
+    -fx-text-fill: #2c3e50; /* Azul oscuro/negro suave para los datos principales */
+    -fx-font-size: 15px;
+    -fx-font-weight: normal;
+}
+
+.contenedor-usuarios {
+    -fx-background-color: #f4f4f4; 
+    -fx-padding: 20;
+    -fx-spacing: 15; 
+}

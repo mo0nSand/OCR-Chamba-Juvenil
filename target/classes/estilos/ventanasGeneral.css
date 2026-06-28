@@ -1,0 +1,11 @@
+
+.close-button {
+    background-color: rgba(255, 242, 242,0.90);
+    -fx-background-color: rgba(255, 242, 242,0.90);
+    -fx-text-fill: rgba(255, 64, 64, 1);
+}
+.close-button:hover {
+     background-color:rgba(255, 64, 64, 1);
+    -fx-background-color: rgba(255, 64, 64, 1);
+    -fx-text-fill: rgba(255, 242, 242, 1);
+}

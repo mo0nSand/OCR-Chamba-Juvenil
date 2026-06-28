@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="120.0" prefWidth="600.0" styleClass="contenedor-usuarios" stylesheets="@../estilos/main_usuariosfila.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.moon.controladores.Main_UsuariosFilaController">
+   <children>
+      <HBox layoutX="200.0" layoutY="10.0" prefHeight="120.0" prefWidth="600.0" styleClass="tarjeta-usuario" stylesheets="@../estilos/main_usuariosfila.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="72.0" prefWidth="244.0" spacing="20.0">
+               <children>
+                  <Label styleClass="label-titulo" stylesheets="@../estilos/main_usuariosfila.css" text="Nombre:" />
+                  <Label fx:id="lbl_usuario" styleClass="label-datos" stylesheets="@../estilos/main_usuariosfila.css" text="xxxxxxx" />
+               </children>
+               <padding>
+                  <Insets top="14.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="72.0" prefWidth="221.0" spacing="20.0">
+               <children>
+                  <Label styleClass="label-titulo" stylesheets="@../estilos/main_usuariosfila.css" text="cambiar contraseña" />
+                  <Label fx:id="lbl_password" styleClass="label-datos" stylesheets="@../estilos/main_usuariosfila.css" text="xxxxxxx" />
+               </children>
+               <padding>
+                  <Insets top="14.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="72.0" prefWidth="38.0" spacing="20.0">
+               <children>
+                  <Button fx:id="btn_eliminar" mnemonicParsing="false" onAction="#Eliminar" text="e" />
+                  <Button fx:id="btn_modificar" mnemonicParsing="false" onAction="#Modificar" text="m" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

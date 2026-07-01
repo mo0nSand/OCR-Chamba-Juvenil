@@ -32,7 +32,6 @@
                   </VBox>
                   <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="126.0" prefWidth="206.0" spacing="24.0">
                      <children>
-                        <Button fx:id="btn_pedidos" contentDisplay="TOP" mnemonicParsing="false" onAction="#OnGestionPedidos" prefHeight="30.0" prefWidth="150.0" styleClass="button-sidebar" stylesheets="@../estilos/pantallaPrincipal.css" text="Pedidos" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
                         <Button fx:id="btn_gestionUsuarios" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onGestionUsuarios" prefHeight="30.0" prefWidth="150.0" styleClass="button-sidebar" stylesheets="@../estilos/pantallaPrincipal.css" text="Usuarios" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>

@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.moon</groupId>
-    <artifactId>NET</artifactId>
+    <artifactId>OCR_Chamba_juvenil</artifactId>
     <version>1.0-SNAPSHOT</version>
     
     <properties>
@@ -15,6 +15,11 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-sync</artifactId>
             <version>4.11.1</version> 
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.3.0</version> 
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -86,4 +91,5 @@
             </plugin>
         </plugins>
     </build>
+    <name>OCR Chamba juvenil</name>
 </project>

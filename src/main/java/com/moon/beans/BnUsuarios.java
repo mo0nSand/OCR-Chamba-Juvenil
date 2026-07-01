@@ -1,75 +1,104 @@
 package com.moon.beans;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import org.bson.Document;
-import com.moon.modelos.Usuarios;
-import java.util.ArrayList;
-import java.util.List;
-import com.mongodb.MongoException;
-import com.mongodb.client.result.DeleteResult;
-import java.util.ArrayList;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BnUsuarios {
-    private final MongoCollection <Document> coleccion;
-    public BnUsuarios() {
-        this.coleccion = DatabaseManager.getInstancia()
-                                        .getDatabase()
-                                        .getCollection("usuarios");
+
+    // Método auxiliar para obtener la conexión compartida
+    private Connection getConexion() {
+        return DatabaseManager.getInstancia().getConexion();
     }
-    
 
     public boolean registrarUsuario(String nombre, String password) {
-        // Verificar si ya existe
-        Document existe = coleccion.find(Filters.eq("nombre", nombre)).first();
-        if (existe != null) {
-            return false; 
-        }
-
-        Document nuevoUsuario = new Document("nombre", nombre)
-                                    .append("password", password);
-        coleccion.insertOne(nuevoUsuario);
-        return true;
-    }
- 
-    public boolean eliminarUsuario(String nombre) {
-        DeleteResult resultado = coleccion.deleteOne(Filters.eq("nombre", nombre));
-        return resultado.getDeletedCount() > 0;
-    }
-
-    public ArrayList<Document> obtenerTodos() {
-        ArrayList<Document> lista = new ArrayList<>();
-        try {
-                return coleccion.find().into(lista);
-        } catch (Exception e) {
-           System.err.print(e);
-        }
-        return lista;
-    }
-
-    public boolean validarUsuario(String usuario, String password) {
-     
-        String uri = "mongodb://localhost:27017"; 
+        String sqlVerificar = "SELECT COUNT(*) FROM usuarios WHERE nombre = ?";
+        String sqlInsertar = "INSERT INTO usuarios (nombre, password) VALUES (?, ?)";
         
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("mi_aplicacion");
-            MongoCollection<Document> collection = database.getCollection("usuarios");
+        // Obtenemos la conexión sin meterla en el try-with-resources para que NO se cierre
+        Connection conn = getConexion();
 
-            // Crear el filtro: buscar donde el campo 'usuario' y 'password' coincidan
-            Document query = new Document("nombre", usuario)
-                                 .append("password", password);
+        try (PreparedStatement stmtVerificar = conn.prepareStatement(sqlVerificar)) {
+            
+            stmtVerificar.setString(1, nombre);
+            try (ResultSet rs = stmtVerificar.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    return false; // El usuario ya existe
+                }
+            }
 
-            // Intentar encontrar el primer documento que coincida
-            Document usuarioEncontrado = collection.find(query).first();
+            try (PreparedStatement stmtInsertar = conn.prepareStatement(sqlInsertar)) {
+                stmtInsertar.setString(1, nombre);
+                stmtInsertar.setString(2, password);
+                
+                int filasAfectadas = stmtInsertar.executeUpdate();
+                return filasAfectadas > 0;
+            }
 
-            return usuarioEncontrado != null;
-
-        } catch (Exception e) {
-            System.err.println("Error conectando a MongoDB: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Error al registrar usuario: " + e.getMessage());
             return false;
         }
+    }
+
+    public boolean eliminarUsuario(String nombre) {
+        String sql = "DELETE FROM usuarios WHERE nombre = ?";
+        Connection conn = getConexion();
+
+        // Solo el PreparedStatement se cierra automáticamente aquí
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, nombre);
+            int filasAfectadas = stmt.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar usuario: " + e.getMessage());
+            return false;
+        }
+    }
+
+   public ArrayList<com.moon.modelos.Usuarios> obtenerTodos() {
+    ArrayList<com.moon.modelos.Usuarios> lista = new ArrayList<>();
+    String sql = "SELECT nombre, password FROM usuarios";
+    Connection conn = getConexion();
+
+    try (PreparedStatement stmt = conn.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+        
+        while (rs.next()) {
+            com.moon.modelos.Usuarios u = new com.moon.modelos.Usuarios("", "");
+            u.setUsuario(rs.getString("nombre"));
+            u.setPassword(rs.getString("password"));
+            lista.add(u);
+        }
+
+    } catch (SQLException e) {
+        System.err.println("Error al obtener usuarios: " + e.getMessage());
+    }
+    return lista;
+}
+
+    public boolean validarUsuario(String usuario, String password) {
+        String sql = "SELECT COUNT(*) FROM usuarios WHERE nombre = ? AND password = ?";
+        Connection conn = getConexion();
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, usuario);
+            stmt.setString(2, password);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al validar usuario en MySQL: " + e.getMessage());
+        }
+        return false;
     }
 }

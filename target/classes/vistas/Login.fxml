@@ -35,7 +35,6 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Crea nuevos diseñor desde un solo lugar. gratis" />
                </children>
             </VBox>
             <VBox prefHeight="170.0" prefWidth="300.0" spacing="20.0">

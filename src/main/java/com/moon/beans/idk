@@ -1,0 +1,49 @@
+-- 1. Crear la tabla 'estructuras'
+CREATE TABLE estructuras (
+    id_estructura INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_estructura VARCHAR(255) NOT NULL,
+    descripcion TEXT
+);
+
+-- 2. Crear la tabla 'usuarios'
+CREATE TABLE usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    usuario VARCHAR(100) UNIQUE NOT NULL,
+    clave VARCHAR(255) NOT NULL,
+    rol VARCHAR(50),
+    estado VARCHAR(50)
+);
+
+-- 3. Crear la tabla 'personal_chamba'
+CREATE TABLE personal_chamba (
+    id_personal INT AUTO_INCREMENT PRIMARY KEY,
+    estatus VARCHAR(50),
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    cedula VARCHAR(20) UNIQUE,
+    nro_telefono VARCHAR(20),
+    correo VARCHAR(255),
+    talla_camisa VARCHAR(10),
+    talla_pantalon VARCHAR(10),
+    id_estructura INT NOT NULL,
+    responsabilidades TEXT,
+    nro_cuenta VARCHAR(50),
+    direccion TEXT,
+    medio_transporte VARCHAR(100),
+    patologia TEXT,
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
+    -- Llave foránea hacia estructuras (Relación 1:N)
+    CONSTRAINT fk_personal_estructura FOREIGN KEY (id_estructura) 
+        REFERENCES estructuras(id_estructura) 
+        ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- Opcional: Si deseas agregar la relación que se ve en el diagrama
+-- de "Un usuario gestiona mucho personal", necesitas agregar el campo id_usuario
+-- en la tabla personal_chamba. Si solo la ves como un esquema visual y no 
+-- necesitas registrar "quién" dio de alta a cada persona, omite lo siguiente:
+-- ALTER TABLE personal_chamba ADD COLUMN id_usuario INT;
+-- ALTER TABLE personal_chamba ADD CONSTRAINT fk_personal_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario);

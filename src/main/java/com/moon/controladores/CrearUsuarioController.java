@@ -49,7 +49,7 @@ public class CrearUsuarioController implements Initializable {
             return;
         }
         
-        boolean exito = bnUsuarios.registrarUsuario(usuario, password);
+        boolean exito = bnUsuarios.registrarUsuario(usuario, password, "", "", "", "");
 
         if (exito) {
             lbl_mensaje.setTextFill(Color.GREEN);
